@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You Got 5 Seconds with Aggits</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="game-shell">
+
+    <button class="corner-button settings-button">
+      <span class="icon">⚙</span>
+      <span>Settings</span>
+    </button>
+
+    <button class="corner-button categories-button">
+      <span class="icon">☰</span>
+      <span>Categories</span>
+    </button>
+
+    <section class="hero">
+      <img class="logo" src="assets/logo-main.png" alt="You Got 5 Seconds with Aggits" />
+      <img class="aggits" src="assets/aggits.png" alt="Aggits" />
+    </section>
+
+    <section class="main-layout">
+
+      <section class="left-column">
+
+        <div class="question-panel">
+          <p class="name-three">Name 3...</p>
+
+          <h1 id="questionText">
+            Things you’d find in a garage
+          </h1>
+
+          <div class="timer-ring">
+            <div class="timer-inner">
+              <span id="timerNumber">5</span>
+              <small>Seconds</small>
+            </div>
+          </div>
+        </div>
+
+        <button id="startButton" class="action-button red-button">
+          ▶ Start Timer
+        </button>
+
+        <button id="nextButton" class="action-button dark-button">
+          Next Question <span>›</span>
+        </button>
+
+        <button id="shareButton" class="action-button dark-button">
+          ⤴ Share / Challenge a Mate
+        </button>
+
+      </section>
+
+      <section class="right-column">
+
+        <button class="category-button selected" data-category="Cars">
+          <span class="cat-icon">🚗</span>
+          <span>Cars</span>
+          <span class="arrow">›</span>
+        </button>
+
+        <button class="category-button" data-category="Bikes">
+          <span class="cat-icon">🏍️</span>
+          <span>Bikes</span>
+          <span class="arrow">›</span>
+        </button>
+
+        <button class="category-button" data-category="Beers">
+          <span class="cat-icon">🍺</span>
+          <span>Beers</span>
+          <span class="arrow">›</span>
+        </button>
+
+        <button class="category-button" data-category="Bands">
+          <span class="cat-icon">🎸</span>
+          <span>Bands</span>
+          <span class="arrow">›</span>
+        </button>
+
+        <button class="category-button" data-category="General Knowledge">
+          <span class="cat-icon">🧠</span>
+          <span>General<br>Knowledge</span>
+          <span class="arrow">›</span>
+        </button>
+
+        <button class="category-button" data-category="Random">
+          <span class="cat-icon">🎲</span>
+          <span>Random</span>
+          <span class="arrow">›</span>
+        </button>
+
+      </section>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
