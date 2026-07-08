@@ -65,7 +65,7 @@ if (shareButton) {
 function showRandomQuestion() {
   if (allQuestions.length === 0) return;
 
-  let availableQuestions =
+  const availableQuestions =
     selectedCategory === "Random"
       ? allQuestions
       : allQuestions.filter((item) => item.category === selectedCategory);
@@ -84,6 +84,7 @@ function showRandomQuestion() {
 function startTimer() {
   if (timerInterval) return;
 
+  unlockAudio();
   playSound(goSound);
 
   timeLeft = 5;
@@ -105,6 +106,7 @@ function startTimer() {
       updateTimerRing(0);
 
       playSound(dingSound);
+      playBuiltInDing();
 
       if (navigator.vibrate) {
         navigator.vibrate(120);
@@ -115,6 +117,19 @@ function startTimer() {
   }, 1000);
 }
 
+function unlockAudio() {
+  dingSound.volume = 0;
+  dingSound.play()
+    .then(() => {
+      dingSound.pause();
+      dingSound.currentTime = 0;
+      dingSound.volume = 1;
+    })
+    .catch(() => {
+      dingSound.volume = 1;
+    });
+}
+
 function playSound(sound) {
   sound.pause();
   sound.currentTime = 0;
@@ -122,6 +137,33 @@ function playSound(sound) {
   sound.play().catch(() => {
     console.log("Sound could not play.");
   });
+}
+
+function playBuiltInDing() {
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContext) return;
+
+  const audioCtx = new AudioContext();
+
+  const oscillator = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(880, audioCtx.currentTime);
+  oscillator.frequency.exponentialRampToValueAtTime(
+    1320,
+    audioCtx.currentTime + 0.15
+  );
+
+  gainNode.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.4, audioCtx.currentTime + 0.03);
+  gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.45);
+
+  oscillator.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+
+  oscillator.start(audioCtx.currentTime);
+  oscillator.stop(audioCtx.currentTime + 0.5);
 }
 
 function setGameLocked(isLocked) {
